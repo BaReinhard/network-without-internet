@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Must be run as Root, i.e. sudo ./runall.sh
 log="./runall.log"
 echo "" > $log
 
@@ -18,23 +18,11 @@ function tst {
 chmod +x ./*
 echo "Starting @ `date`" | tee -a $log
 echo "--------------------------------------------" | tee -a $log
-tst ./bt_pa_prep.sh | tee -a $log
-echo "--------------------------------------------" | tee -a $log
-tst ./bt_pa_install.sh | tee -a $log
-echo "--------------------------------------------" | tee -a $log
-echo "${MYNAME}" | tst ./bt_pa_config.sh | tee -a $log
-echo "--------------------------------------------" | tee -a $log
-tst ./sound_card_install.sh | tee -a $log
-tst ./airplay_install.sh | tee -a $log
-echo "--------------------------------------------" | tee -a $log
-echo "${MYNAME}" | tst ./airplay_config.sh | tee -a $log
+tst ./ap_prep.sh | tee -a $log
 echo "--------------------------------------------" | tee -a $log
 tst ./ap_install.sh | tee -a $log
 echo "--------------------------------------------" | tee -a $log
 { echo "${MYNAME}"; echo "${WIFIPASS}";} | tst ./ap_config.sh | tee -a $log
-tst ./kodi_install.sh | tee -a $log
-tst ./kodi_config.sh | tee -a $log
-tst ./lirc_install.sh | tee -a $log
-tst ./lirc_config.sh | tee -a $log
+echo "--------------------------------------------" | tee -a $log
 echo "Ending at @ `date`" | tee -a $log
-reboot
+
